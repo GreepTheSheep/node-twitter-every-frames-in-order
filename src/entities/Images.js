@@ -16,10 +16,6 @@ class Images {
         this.imagesData = require('../../images.json');
         this.actualVideo = null;
         this.actualFrame = null;
-        this.actualData = {
-            actualVideo: this.actualVideo,
-            actualFrame: this.actualFrame
-        };
         this.dataFile = './cache/actual.json';
         this.executeIntervalProc = null;
         this.dataRecovered = false;
@@ -31,9 +27,11 @@ class Images {
      */
     recoverDataIfPossible() {
         if (fs.existsSync(this.dataFile)) {
-            this.actualData = JSON.parse(fs.readFileSync(this.dataFile));
+            let actualData = JSON.parse(fs.readFileSync(this.dataFile));
+            this.actualVideo = actualData.actualVideo;
+            this.actualFrame = actualData.actualFrame;
             this.dataRecovered = true;
-            console.log("Recovered data. Actual video: " + this.actualData.actualVideo + " Actual frame: " + this.actualData.actualFrame);
+            console.log("Recovered data. Actual video: " + this.actualVideo + " Actual frame: " + this.actualFrame);
         } else this.dataRecovered = true;
     }
 
@@ -41,8 +39,12 @@ class Images {
      * Save the actual data
      */
     saveData() {
-        fs.writeFileSync(this.dataFile, JSON.stringify(this.actualData));
-        console.log("Saved data. Actual video: " + this.actualData.actualVideo + " Actual frame: " + this.actualData.actualFrame);
+        let actualData = {
+            actualVideo: this.actualVideo,
+            actualFrame: this.actualFrame
+        }
+        fs.writeFileSync(this.dataFile, JSON.stringify(actualData));
+        console.log("Saved data. Actual video: " + this.actualVideo + " Actual frame: " + this.actualFrame);
     }
 
     async post(video = this.actualVideo, frame = this.actualFrame) {
@@ -55,6 +57,9 @@ class Images {
         const actualVid = this.imagesData.find(i=>i.identifier == this.actualVideo);
 
         if (!fs.existsSync('./cache/' + actualVid.identifier + '.zip')) {
+
+            if (actualVid.zip_download_link.endsWith('dl=0')) actualVid.zip_download_link.replace('dl=0', 'dl=1');
+
             console.log("Downloading " + actualVid.identifier + ".zip");
             await download(actualVid.zip_download_link, './cache', { filename: actualVid.identifier + '.zip' });
             console.log("Downloaded " + actualVid.identifier + ".zip");
@@ -88,6 +93,7 @@ class Images {
                 if (this.actualVideo == null) this.actualVideo = this.imagesData[0].identifier;
                 fs.unlinkSync('./cache/' + actualVid.identifier + '.zip');
             }
+            this.saveData();
         });
 
     }
