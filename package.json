@@ -1,0 +1,31 @@
+{
+  "name": "twitter-every-frames-in-order",
+  "version": "1.0.0",
+  "description": "Twitter bot to post every Frames In Order",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GreepTheSheep/node-twitter-every-frames-in-order.git"
+  },
+  "keywords": [
+    "twitter",
+    "frame",
+    "movie",
+    "bot"
+  ],
+  "author": "Greep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GreepTheSheep/node-twitter-every-frames-in-order/issues"
+  },
+  "homepage": "https://github.com/GreepTheSheep/node-twitter-every-frames-in-order#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "download": "^8.0.0",
+    "node-stream-zip": "^1.15.0",
+    "twit": "^2.2.11"
+  }
+}

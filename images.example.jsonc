@@ -1,0 +1,12 @@
+[
+    {
+        "identifier": "S01E01", // Setup any movie or episode identifier. This is used to identify the filename. See README.md for more information.
+        "name": "Among Us", // Setup here the name of the movie/episode
+        "zip_download_link": "https://www.dropbox.com/sh/djj8pp4q8xtmk8n/AACU3ELYoyYaOXaBynYY-qlKa?dl=1" // Set here a dropbox link to the folder, don't forget to set dl to 1 so it can download the .zip file
+    },
+    {
+        "identifier": "S01E02",
+        "name": "Sus",
+        "zip_download_link": "https://www.dropbox.com/sh/djj8pp4q8xtmk8n/AACU3ELYoyYaOXaBynYY-qlKa?dl=1"
+    }
+]
