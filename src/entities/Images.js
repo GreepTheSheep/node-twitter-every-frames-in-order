@@ -107,7 +107,10 @@ class Images {
         }
 
         console.log("Executing image tweet with an interval of " + interval + " minutes");
-        this.executeIntervalProc = setInterval(this.post, interval * 60 * 1000);
+        this.executeIntervalProc = setInterval(()=>{
+            console.log("Executing image tweet... Video: " + this.actualVideo + " Frame: " + this.actualFrame);
+            this.post();
+        }, interval * 60 * 1000);
     }
 }
 
