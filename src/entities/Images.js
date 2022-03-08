@@ -79,10 +79,11 @@ class Images {
             let file = entries[key];
             if (!file) {
                 console.error("File not found: " + key);
+                twt.tweet(`${actualVid.name} (${actualVid.identifier}) - ${this.actualFrame} out of ${totalFrames}\n\nError: Frame not found.`);
             } else {
                 console.log("File found: " + key);
                 const base64img = zip.entryDataSync(key).toString('base64');
-                const message = `${actualVid.name} (${actualVid.identifier}) - Frame ${this.actualFrame} of ${totalFrames}`;
+                const message = `${actualVid.name} (${actualVid.identifier}) - Frame ${this.actualFrame} out of ${totalFrames}`;
                 twt.postImage(base64img, message);
             }
             zip.close();
