@@ -16,6 +16,7 @@ class Images {
         this.imagesData = require('../../images.json');
         this.actualVideo = null;
         this.actualFrame = null;
+        this.totalFrames = 0;
         this.dataFile = './cache/actual.json';
         this.executeIntervalProc = null;
         this.dataRecovered = false;
@@ -47,6 +48,40 @@ class Images {
         console.log("Saved data. Actual video: " + this.actualVideo + " Actual frame: " + this.actualFrame);
     }
 
+    /**
+     * Returns the JSON of the actual state
+     * @returns {Object}
+     */
+    getActual() {
+        if (this.actualVideo == null) return {
+            identifier: null,
+            name: null,
+            frame: null,
+            totalFrames: null
+        }
+
+        const actualVid = this.imagesData.find(i=>i.identifier == this.actualVideo);
+        return {
+            identifier: actualVid.identifier,
+            name: actualVid.name,
+            frame: this.actualFrame,
+            totalFrames: this.totalFrames
+        }
+    }
+
+    /**
+     * Returns the JSON of all the videos in the images.json file
+     * @returns {Object}
+     */
+    getAll() {
+        return this.imagesData.map(i => {
+            return {
+                identifier: i.identifier,
+                name: i.name,
+            }
+        });
+    }
+
     async post(video = this.actualVideo, frame = this.actualFrame) {
         this.actualVideo = video;
         this.actualFrame = frame;
@@ -74,21 +109,21 @@ class Images {
         zip.on('ready', async () => {
             let entries = zip.entries();
             delete entries["/"];
-            let totalFrames = Object.keys(entries).length;
+            this.totalFrames = Object.keys(entries).length;
             let key = this.actualVideo + "-" + this.actualFrame + ".jpg";
             let file = entries[key];
             if (!file) {
                 console.error("File not found: " + key);
-                twt.tweet(`${actualVid.name} (${actualVid.identifier}) - ${this.actualFrame} out of ${totalFrames}\n\nError: Frame not found.`);
+                twt.tweet(`${actualVid.name} (${actualVid.identifier}) - ${this.actualFrame} out of ${this.totalFrames}\n\nError: Frame not found.`);
             } else {
                 console.log("File found: " + key);
                 const base64img = zip.entryDataSync(key).toString('base64');
-                const message = `${actualVid.name} (${actualVid.identifier}) - Frame ${this.actualFrame} out of ${totalFrames}`;
+                const message = `${actualVid.name} (${actualVid.identifier}) - Frame ${this.actualFrame} out of ${this.totalFrames}`;
                 twt.postImage(base64img, message);
             }
             zip.close();
             this.actualFrame++;
-            if (this.actualFrame > totalFrames) {
+            if (this.actualFrame > this.totalFrames) {
                 this.actualFrame = 1;
                 this.actualVideo = this.imagesData[this.imagesData.indexOf(actualVid) + 1].identifier;
                 if (this.actualVideo == null) this.actualVideo = this.imagesData[0].identifier;

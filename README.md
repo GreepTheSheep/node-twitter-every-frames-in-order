@@ -34,3 +34,15 @@ After that, you can get the .zip download link by sharing the folder in Dropbox,
 ## Running:
 
 The best way to run a server-side script is to use pm2 `npm i -g pm2`. Then you can start with `pm2 start pm2.config.js`.
+
+## API
+This project serves with an API to send the actual state of frames.
+
+The default port is `3000`, but you can change it in the `.env` file.
+
+### Routes:
+
+- GET /actual
+- GET /all
+
+Thoses routes has no parameters, feel free to check them out.
