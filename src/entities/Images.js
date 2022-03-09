@@ -114,7 +114,7 @@ class Images {
             let file = entries[key];
             if (!file) {
                 console.error("File not found: " + key);
-                this/twt.tweet(`${actualVid.name} (${actualVid.identifier}) - ${this.actualFrame} out of ${this.totalFrames}\n\nError: Frame not found.`);
+                this.twt.tweet(`${actualVid.name} (${actualVid.identifier}) - ${this.actualFrame} out of ${this.totalFrames}\n\nError: Frame not found.`);
             } else {
                 console.log("File found: " + key);
                 const base64img = zip.entryDataSync(key).toString('base64');
