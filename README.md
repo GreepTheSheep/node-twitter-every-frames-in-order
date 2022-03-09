@@ -27,6 +27,8 @@ Convert your video to frames. The best way is to use ffmpeg.
 
 where ID is the identifier of the episode (the `-filter:v fps=3` is the number of frames per second, the best value to not have too many frames is 3, but you are free to set more/less).
 
+(an other way is to use the powershell script in `script_convert.ps1`, details are on this file)
+
 Then upload all the frames to the folder.
 
 After that, you can get the .zip download link by sharing the folder in Dropbox, and putting the link in the `images.json` file.
