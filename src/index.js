@@ -9,7 +9,7 @@ const express = require('express'),
     port = Number(process.env.API_PORT) || 3000,
     cors = require('cors'),
     logger = require('morgan'),
-    httpError = require('http-errors');
+    createError = require('http-errors');
 
 app.use(cors());
 app.use(logger('dev'));
