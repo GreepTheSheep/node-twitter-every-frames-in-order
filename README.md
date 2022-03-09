@@ -46,5 +46,6 @@ The default port is `3000`, but you can change it in the `.env` file.
 
 - GET /actual
 - GET /all
+- GET /user
 
 Thoses routes has no parameters, feel free to check them out.

@@ -10,6 +10,19 @@ class Twitter {
     }
 
     /**
+     * Returns the actual user data
+     * @returns {Object}
+     */
+    async getUser() {
+        return new Promise((resolve, reject) => {
+            this.client.get('account/verify_credentials', (err, data, response) => {
+                if (err) reject(err);
+                else resolve(data);
+            });
+        });
+    }
+
+    /**
      * Tweets a message and returns the tweet URL
      * @param {string} message The message to tweet
      */

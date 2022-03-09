@@ -6,13 +6,13 @@ const tokens = {
     access_token_key: process.env.TWITTER_ACCESS_TOKEN,
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 }
-const twt = new Twitter(tokens);
 const fs = require('fs');
 const download = require('download');
 const StreamZip = require('node-stream-zip');
 
 class Images {
     constructor() {
+        this.twt = new Twitter(tokens);
         this.imagesData = require('../../images.json');
         this.actualVideo = null;
         this.actualFrame = null;
@@ -114,12 +114,12 @@ class Images {
             let file = entries[key];
             if (!file) {
                 console.error("File not found: " + key);
-                twt.tweet(`${actualVid.name} (${actualVid.identifier}) - ${this.actualFrame} out of ${this.totalFrames}\n\nError: Frame not found.`);
+                this/twt.tweet(`${actualVid.name} (${actualVid.identifier}) - ${this.actualFrame} out of ${this.totalFrames}\n\nError: Frame not found.`);
             } else {
                 console.log("File found: " + key);
                 const base64img = zip.entryDataSync(key).toString('base64');
                 const message = `${actualVid.name} (${actualVid.identifier}) - Frame ${this.actualFrame} out of ${this.totalFrames}`;
-                twt.postImage(base64img, message);
+                this.twt.postImage(base64img, message);
             }
             zip.close();
             this.actualFrame++;

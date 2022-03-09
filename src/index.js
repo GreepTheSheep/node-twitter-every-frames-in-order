@@ -23,6 +23,14 @@ app.get('/all', (req, res, next) => {
     res.json(img.getAll());
 });
 
+app.get('/user', (req, res, next) => {
+    img.twt.getUser().then(data => {
+        res.json(data);
+    }).catch(err => {
+        next(createError(500, err));
+    });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     next(createError(404, 'Not found'));
