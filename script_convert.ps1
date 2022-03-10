@@ -7,7 +7,7 @@ $season = "01" # you can set any other string here, it is used to identify the "
 $episode = 1
 $fileExtensionToProcess = 'mkv' # Set here the file extension of the video files to process (mkv, mp4, avi, etc)
 $fileExtensionImageOutput = 'jpg' # jpg or png, jpg has less quality but the file size is smaller compared to png which is lossless
-$imageQuality = 1 # Set here the compression level from 1 to 31, lower is better
+$imageQuality = 1 # Set here the compression level from 1 to 31, lower is better quality
 $outDir = ".\imgs\" # Set here the output directory
 
 $path = Get-Location
