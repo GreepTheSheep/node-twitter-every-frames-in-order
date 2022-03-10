@@ -23,9 +23,9 @@ Create a folder named like the "identifier" field in the `images.json` file.
 
 Convert your video to frames. The best way is to use ffmpeg.
 
-`ffmpeg -i '.\video.mp4' -filter:v fps=3 '.\ID\ID-%d.jpg'`
+`ffmpeg -i '.\video.mp4' -filter:v fps=3 -q:v 1 '.\ID\ID-%d.jpg'`
 
-where ID is the identifier of the episode (the `-filter:v fps=3` is the number of frames per second, the best value to not have too many frames is 3, but you are free to set more/less).
+where ID is the identifier of the episode (the `-filter:v fps=3` is the number of frames per second, the best value to not have too many frames is 3, but you are free to set more/less. `-q:v 1` is the compression level, value are from 1 to 31, lower value = better quality).
 
 (an other way is to use the powershell script in `script_convert.ps1`, details are on this file)
 
