@@ -7,6 +7,7 @@ $season = "01" # you can set any other string here, it is used to identify the "
 $episode = 1
 $fileExtensionToProcess = 'mkv' # Set here the file extension of the video files to process (mkv, mp4, avi, etc)
 $fileExtensionImageOutput = 'jpg' # jpg or png, jpg has less quality but the file size is smaller compared to png which is lossless
+$framePerSecond = 3 # Set here the number of frames / second of the video to be converted. Higher value = more images
 $imageQuality = 1 # Set here the compression level from 1 to 31, lower is better quality
 $outDir = ".\imgs\" # Set here the output directory
 
@@ -45,7 +46,7 @@ foreach($file in Get-ChildItem $path)
         $files = Get-ChildItem -Path $outDirEp -Recurse -File | Where-Object {$_.Name -like $($outFileName)}
         if ($files.Count -eq 0)
         {
-            ffmpeg -i ".\$($file.Name)" -filter:v fps=3 -q:v $($imageQuality) "$($outFileName)-%d.$($fileExtensionImageOutput)"
+            ffmpeg -i ".\$($file.Name)" -filter:v fps=$($framePerSecond) -q:v $($imageQuality) "$($outFileName)-%d.$($fileExtensionImageOutput)"
         }
 
         $episode = $episode + 1
