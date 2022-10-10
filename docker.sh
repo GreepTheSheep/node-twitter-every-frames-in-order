@@ -1,7 +1,8 @@
 #!/bin/bash
 
 base=$(basename $(pwd))
+port=$(grep -Po 'API_PORT=([0-9]+)' .env | cut -d= -f2)
 
 docker stop fio-$base
 docker build -t frameinorder-$base .
-docker run --rm --name fio-$base -d frameinorder-$base
+docker run --rm --name fio-$base -d -v ./cache:/server/frameinorder/cache -p $port:$port frameinorder-$base
