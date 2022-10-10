@@ -5,6 +5,7 @@ WORKDIR /server/frameinorder
 COPY ./src /server/frameinorder/src
 COPY ./cache /server/frameinorder/cache
 COPY ./package.json /server/frameinorder/package.json
+COPY ./images.json /server/frameinorder/images.json
 COPY ./.env /server/frameinorder/.env
 
 ENV NPM_CONFIG_LOGLEVEL warn
